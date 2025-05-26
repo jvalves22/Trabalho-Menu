@@ -82,102 +82,118 @@ float lib_kg(float num) {
 }
 
 void figuraCirculo() {
-    printf(
-        "   ***   \n"
-        " *     * \n"
-        "*       *\n"
-        "*       *\n"
-        " *     * \n"
-        "   ***   \n"
-    );
+    int raio = 5;
+    for (int y = -raio; y <= raio; y++) {
+        for (int x = -raio; x <= raio; x++) {
+            if (x * x + y * y <= raio * raio)
+                printf("*");
+            else
+                printf(" ");
+        }
+        printf("\n");
+    }
 }
 
 void figuraLosango() {
-    printf(
-        "   *   \n"
-        "  * *  \n"
-        " *   * \n"
-        "  * *  \n"
-        "   *   \n"
-    );
+    int altura = 5;
+    for (int i = -altura; i <= altura; i++) {
+        int espacos = abs(i);
+        int asteriscos = altura - espacos + 1;
+
+        for (int j = 0; j < espacos; j++) printf(" ");
+        printf("*");
+        if (asteriscos > 1) {
+            for (int j = 0; j < (asteriscos - 1) * 2 - 1; j++) printf(" ");
+            printf("*");
+        }
+        printf("\n");
+    }
 }
 
 void figuraParalelogramo() {
-    printf(
-        "  ********\n"
-        " ******** \n"
-        "********  \n"
-        "********  \n"
-        " ******** \n"
-        "  ********\n"
-    );
+    int linhas = 6;
+    int colunas = 12;
+    for (int i = 0; i < linhas; i++) {
+        for (int e = 0; e < linhas - i - 1; e++) printf(" ");
+        for (int j = 0; j < colunas; j++) printf("*");
+        printf("\n");
+    }
 }
 
 void figuraTrapezio() {
-    printf(
-        "    ******\n"
-        "   ********\n"
-        "  **********\n"
-        " ************\n"
-        "**************\n"
-    );
+    int linhas = 5;
+    int baseMaior = 14;
+    int baseMenor = 6;
+    int incremento = (baseMaior - baseMenor) / (linhas - 1);
+
+    for (int i = 0; i < linhas; i++) {
+        int largura = baseMenor + i * incremento;
+        for (int e = 0; e < (baseMaior - largura) / 2; e++) printf(" ");
+        for (int j = 0; j < largura; j++) printf("*");
+        printf("\n");
+    }
 }
 
 void figuraTriangulo() {
-    printf(
-        "    *    \n"
-        "   * *   \n"
-        "  *   *  \n"
-        " *     * \n"
-        "*********\n"
-    );
+    int altura = 6;
+    for (int i = 0; i < altura; i++) {
+        for (int e = 0; e < altura - i - 1; e++) printf(" ");
+        for (int j = 0; j < 2 * i + 1; j++) {
+            if (i == altura - 1 || j == 0 || j == 2 * i)
+                printf("*");
+            else
+                printf(" ");
+        }
+        printf("\n");
+    }
 }
 
 void figuraEsfera() {
-    printf(
-        "   ***   \n"
-        " *     * \n"
-        "*       *\n"
-        "*       *\n"
-        " *     * \n"
-        "   ***   \n"
-    );
+    figuraCirculo();
 }
 
 void figuraCone() {
-    printf(
-        "    *    \n"
-        "   ***   \n"
-        "  *****  \n"
-        " ******* \n"
-        "*********\n"
-        "    |    \n"
-        "    |    \n"
-    );
+    int altura = 6;
+    for (int i = 0; i < altura; i++) {
+        for (int e = 0; e < altura - i - 1; e++) printf(" ");
+        for (int j = 0; j < 2 * i + 1; j++) printf("*");
+        printf("\n");
+    }
+    for (int i = 0; i < 2; i++) {
+        for (int e = 0; e < altura; e++) printf(" ");
+        printf("|\n");
+    }
 }
-
 void figuraCilindro() {
-    printf(
-        "  *****  \n"
-        " *     * \n"
-        " *     * \n"
-        " *     * \n"
-        "  *****  \n"
-        "  *****  \n"
-        " *     * \n"
-        " *     * \n"
-        "  *****  \n"
-    );
-}
+    int altura = 6;
+    int largura = 12;
 
+    // Topo
+    for (int i = 0; i < largura; i++) printf("*");
+    printf("\n");
+
+    // Laterais
+    for (int i = 0; i < altura; i++) {
+        printf("*");
+        for (int j = 0; j < largura - 2; j++) printf(" ");
+        printf("*\n");
+    }
+
+    for (int i = 0; i < largura; i++) printf("*");
+    printf("\n");
+}
 void figuraParalelepipedo() {
-    printf(
-        "***********\n"
-        "*         *\n"
-        "*         *\n"
-        "*         *\n"
-        "***********\n"
-    );
+    int linhas = 6;
+    int colunas = 14;
+    for (int i = 0; i < linhas; i++) {
+        for (int j = 0; j < colunas; j++) {
+            if (i == 0 || i == linhas - 1 || j == 0 || j == colunas - 1)
+                printf("*");
+            else
+                printf(" ");
+        }
+        printf("\n");
+    }
 }
 
 void figuraMetrosJardas() {
