@@ -81,14 +81,21 @@ float lib_kg(float num) {
     return num / 2.20462262; 
 }
 
+
 void figuraCirculo() {
-    int raio = 5;
-    for (int y = -raio; y <= raio; y++) {
-        for (int x = -raio; x <= raio; x++) {
-            if (x * x + y * y <= raio * raio)
+    int raio = 10;
+    float proporcao = 2.0; // Compensa a largura dos caracteres no console
+    float espessura = 0.4; // Controle da espessura da linha do c�rculo
+
+    for (float y = raio; y >= -raio; y--) {
+        for (float x = -raio * proporcao; x <= raio * proporcao; x++) {
+            float equacao = (x / proporcao) * (x / proporcao) + y * y;
+            if (equacao >= (raio - espessura) * (raio - espessura) &&
+                equacao <= (raio + espessura) * (raio + espessura)) {
                 printf("*");
-            else
+            } else {
                 printf(" ");
+            }
         }
         printf("\n");
     }
@@ -168,11 +175,9 @@ void figuraCilindro() {
     int altura = 6;
     int largura = 12;
 
-    // Topo
     for (int i = 0; i < largura; i++) printf("*");
     printf("\n");
-
-    // Laterais
+   
     for (int i = 0; i < altura; i++) {
         printf("*");
         for (int j = 0; j < largura - 2; j++) printf(" ");
@@ -215,9 +220,9 @@ void figuraKgLibras() {
 void cabecalho(const char *titulo) {
     system("cls"); 
     printf(
-        "╔══════════════════════════════════════════════╗\n"
-        "║  %s\n"
-        "╚══════════════════════════════════════════════╝\n", titulo);
+        "================================================\n"
+        "===  %s\n"									 "==="
+        "================================================\n", titulo);
 }
 
 void pausar() {
@@ -226,45 +231,45 @@ void pausar() {
 }
 
 void menuPrincipal() {
-    cabecalho(" CALCULADORA GEOMÉTRICA ");
+    cabecalho(" CALCULADORA GEOMETRICA ");
     printf(
-        "1 - Calcular ÁREA de figuras planas\n"
-        "2 - Calcular VOLUME de sólidos geométricos\n"
-        "3 - Conversão de MEDIDAS\n"
+        "1 - Calcular Area de figuras planas\n"
+        "2 - Calcular VOLUME de solidos geometricos\n"
+        "3 - Conversao de MEDIDAS\n"
         "4 - Sair\n"
         "Escolha: ");
 }
 
 void menuArea() {
-    cabecalho(" ÁREA DE FIGURAS PLANAS");
+    cabecalho(" AREAS DE FIGURAS PLANAS");
     printf(
-        "1 - Círculo\n"
+        "1 - Circulo\n"
         "2 - Losango\n"
         "3 - Paralelogramo\n"
-        "4 - Trapézio\n"
-        "5 - Triângulo\n"
+        "4 - Trapezio\n"
+        "5 - Triangulo\n"
         "0 - Voltar\n"
         "Escolha: ");
 }
 
 void menuVolume() {
-    cabecalho(" VOLUME DE SÓLIDOS GEOMÉTRICOS");
+    cabecalho(" VOLUME DE SOLIDOS GEOMETRICOS");
     printf(
         "1 - Esfera\n"
         "2 - Cone\n"
         "3 - Cilindro\n"
-        "4 - Paralelepípedo\n"
+        "4 - Paralelepipedo\n"
         "0 - Voltar\n"
         "Escolha: ");
 }
 
 void menuConversao() {
-    cabecalho(" CONVERSÃO DE MEDIDAS");
+    cabecalho(" CONVERSAO DE MEDIDAS");
     printf(
-        "1 - Metros -> Jardas\t5 - Litros -> Galões\n"
+        "1 - Metros -> Jardas\t5 - Litros -> Galoes\n"
         "2 - Jardas -> Metros\t6 - Galões -> Litros\n"
-        "3 - cm³ -> pol³\t7 - Kg -> Libras\n"
-        "4 - pol³ -> cm³\t8 - Libras -> Kg\n"
+        "3 - cm� -> pol�\t7 - Kg -> Libras\n"
+        "4 - pol� -> cm�\t8 - Libras -> Kg\n"
         "0 - Voltar\n"
         "Escolha: ");
 }
@@ -278,23 +283,23 @@ void executarArea() {
         switch (opc) {
             case 1:
                 figuraCirculo();
-                printf("Diâmetro do círculo: "); scanf("%f", &a);
+                printf("Diametro do circulo: "); scanf("%f", &a);
                 res = circulo(a);
-                printf("Área do círculo: %.2f\n", res);
+                printf("Área do circulo: %.2f\n", res);
                 break;
             case 2:
                 figuraLosango();
                 printf("Diagonal 1: "); scanf("%f", &a);
                 printf("Diagonal 2: "); scanf("%f", &b);
                 res = losango(a, b);
-                printf("Área do losango: %.2f\n", res);
+                printf("Area do losango: %.2f\n", res);
                 break;
             case 3:
                 figuraParalelogramo();
                 printf("Base: "); scanf("%f", &a);
                 printf("Altura: "); scanf("%f", &b);
                 res = paralelogramo(b, a);
-                printf("Área do paralelogramo: %.2f\n", res);
+                printf("Area do paralelogramo: %.2f\n", res);
                 break;
             case 4:
                 figuraTrapezio();
@@ -302,7 +307,7 @@ void executarArea() {
                 printf("Base menor: "); scanf("%f", &b);
                 printf("Altura: "); scanf("%f", &c);
                 res = trapezio(a, b, c);
-                printf("Área do trapézio: %.2f\n", res);
+                printf("Area do trapezio: %.2f\n", res);
                 break;
             case 5:
                 figuraTriangulo();
@@ -311,16 +316,16 @@ void executarArea() {
                 printf("Lado C: "); scanf("%f", &c);
                 if (a == b && b == c) {
                     res = triangulo_equi(a);
-                    printf("Área do triângulo equilátero: %.2f\n", res);
+                    printf("Area do triangulo equilatero: %.2f\n", res);
                 } else {
                     printf("Base: "); scanf("%f", &a);
                     printf("Altura: "); scanf("%f", &b);
                     res = triangulo(a, b);
-                    printf("Área do triângulo: %.2f\n", res);
+                    printf("Area do triangulo: %.2f\n", res);
                 }
                 break;
             case 0: break;
-            default: printf("Opção inválida!\n");
+            default: printf("Opcao invalida!\n");
         }
         if (opc != 0) pausar();
     } while (opc != 0);
@@ -335,20 +340,20 @@ void executarVolume() {
         switch (opc) {
             case 1:
                 figuraEsfera();
-                printf("Diâmetro da esfera: "); scanf("%f", &a);
+                printf("Diametro da esfera: "); scanf("%f", &a);
                 res = esfera(a);
                 printf("Volume da esfera: %.2f\n", res);
                 break;
             case 2:
                 figuraCone();
-                printf("Diâmetro da base: "); scanf("%f", &a);
+                printf("Diametro da base: "); scanf("%f", &a);
                 printf("Altura: "); scanf("%f", &b);
                 res = cone(a, b);
                 printf("Volume do cone: %.2f\n", res);
                 break;
             case 3:
                 figuraCilindro();
-                printf("Diâmetro da base: "); scanf("%f", &a);
+                printf("Diametro da base: "); scanf("%f", &a);
                 printf("Altura: "); scanf("%f", &b);
                 res = cilindro(a, b);
                 printf("Volume do cilindro: %.2f\n", res);
@@ -359,10 +364,10 @@ void executarVolume() {
                 printf("Largura: "); scanf("%f", &b);
                 printf("Altura: "); scanf("%f", &c);
                 res = paralelepipedo(a, b, c);
-                printf("Volume do paralelepípedo: %.2f\n", res);
+                printf("Volume do paralelepipedo: %.2f\n", res);
                 break;
             case 0: break;
-            default: printf("Opção inválida!\n");
+            default: printf("Opcaoo invalida!\n");
         }
         if (opc != 0) pausar();
     } while (opc != 0);
@@ -389,13 +394,13 @@ void executarConversao() {
                 break;
             case 3:
                 figuraCmPol();
-                printf("cm³: "); scanf("%f", &num);
+                printf("cm�: "); scanf("%f", &num);
                 res = cmcub_polcub(num);
                 printf("%.2f cm³ = %.2f in³\n", num, res);
                 break;
             case 4:
                 figuraCmPol();
-                printf("in³: "); scanf("%f", &num);
+                printf("in�: "); scanf("%f", &num);
                 res = polcub_cmcub(num);
                 printf("%.2f in³ = %.2f cm³\n", num, res);
                 break;
@@ -407,7 +412,7 @@ void executarConversao() {
                 break;
             case 6:
                 figuraLitrosGaloes();
-                printf("Galões: "); scanf("%f", &num);
+                printf("Galoes: "); scanf("%f", &num);
                 res = gl_l(num);
                 printf("%.2f gal = %.2f L\n", num, res);
                 break;
@@ -424,7 +429,7 @@ void executarConversao() {
                 printf("%.2f lb = %.2f kg\n", num, res);
                 break;
             case 0: break;
-            default: printf("Opção inválida!\n");
+            default: printf("Opcao invalida!\n");
         }
         if (opc != 0) pausar();
     } while (opc != 0);
@@ -447,10 +452,10 @@ int main() {
                 break;
             case 4: break;
             default:
-                printf("Opção inválida!\n");
+                printf("Op�ao invalida!\n");
                 pausar();
         }
     } while (opc != 4);
-    cabecalho("🫡 Programa encerrado. Até logo!");
+    cabecalho("Programa encerrado. At� logo!");
     return 0;
 }
