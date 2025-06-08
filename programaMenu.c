@@ -9,78 +9,60 @@ float circulo(float dia) {
     float r = dia / 2;
     return PI * r * r;
 }
-
 float losango(float D1, float D2) {
     return (D1 * D2) / 2;
 }
-
 float paralelogramo(float alt, float base) {
     return base * alt;
 }
-
 float trapezio(float B_maior, float b_menor, float alt) {
     return ((B_maior + b_menor) / 2) * alt;
 }
-
 float triangulo_equi(float lado) {
     return (lado * lado * sqrt(3)) / 4;
 }
-
 float triangulo(float base, float alt) {
     return (base * alt) / 2;
 }
-
 float esfera(float dia) {
     float r = dia / 2;
     return (4.0 * PI * r * r * r) / 3.0;
 }
-
 float cone(float dia, float alt) {
     float r = dia / 2;
     return (PI * r * r * alt) / 3.0;
 }
-
 float cilindro(float dia, float alt) {
     float r = dia / 2;
     return PI * r * r * alt;
 }
-
 float paralelepipedo(float comp, float larg, float alt) {
     return comp * larg * alt;
 }
-
 float m_j(float num) {
      return num * 1.09361; 
 }
-
 float j_m(float num) { 
     return num / 1.09361; 
 }
-
 float cmcub_polcub(float num) {
      return num / 16.387064; 
 }
-
 float polcub_cmcub(float num) {
      return num * 16.387064; 
 }
-
 float l_gl(float num) { 
     return num * 0.2642; 
 }
-
 float gl_l(float num) { 
     return num / 0.2642; 
 }
-
 float kg_lib(float num) { 
     return num * 2.20462262; 
 }
-
 float lib_kg(float num) { 
     return num / 2.20462262; 
 }
-
 
 void figuraCirculo() {
     int raio = 10;
@@ -217,7 +199,25 @@ void figuraKgLibras() {
     printf("[kg] <--> [lb]\n");
 }
 
-void cabecalho(const char *titulo) {
+void DolarParaReal() {
+    float dolar, cotacao = 5.56, convertido;
+    printf("Digite o valor em dólares (US$): ");
+    scanf("%f", &dolar);
+    convertido = dolar * cotacao;
+    printf("Cotação do dólar: %.2f\n", cotacao);
+    printf("Valor em reais: R$ %.2f\n", convertido);
+}
+
+void EuroParaReal() {
+    float euro, cotacao = 6.02, convertido;
+    printf("Digite o valor em euros (€): ");
+    scanf("%f", &euro);
+    convertido = euro * cotacao;
+    printf("Cotação do euro: %.2f\n", cotacao);
+    printf("Valor em reais: R$ %.2f\n", convertido);
+}
+
+void cabecalho(const char * titulo) {
     system("cls"); 
     printf(
         "===========================================================================================\n"
@@ -231,12 +231,13 @@ void pausar() {
 }
 
 void menuPrincipal() {
-    cabecalho(" CALCULADORA GEOMETRICA ");
+    cabecalho(" CALCULADORA GEOMETRICA E CONVERSOR DE MOEDAS ");
     printf(
         "\n\t\t\t 1 - Calcular Area de figuras planas\n"
         "\t\t\t 2 - Calcular VOLUME de solidos geometricos\n"
         "\t\t\t 3 - Conversao de MEDIDAS\n"
-        "\t\t\t 4 - Sair\n"
+        "\t\t\t 4 - Conversao de MOEDAS\n"
+        "\t\t\t 5 - Sair\n"
         "\n\t\t\t Escolha: ");
 }
 
@@ -274,6 +275,15 @@ void menuConversao() {
         "\n\t\t\t Escolha: ");
 }
 
+void menuConMoedas() {
+    cabecalho(" CONVERSAO DE MOEDAS");
+    printf(
+        "\n\t\t 1 - Dolar -> Reais"
+        "\t\t 2 - Euro -> Reais"
+        "\n\t\t 3 - Voltar\n"
+        "\n\t\t\t Escolha: ");
+}
+
 void executarArea() {
     int opc;
     float a, b, c, res;
@@ -285,7 +295,7 @@ void executarArea() {
                 figuraCirculo();
                 printf("Diametro do circulo: "); scanf("%f", &a);
                 res = circulo(a);
-                printf("�rea do circulo: %.2f\n", res);
+                printf("area do circulo: %.2f\n", res);
                 break;
             case 2:
                 figuraLosango();
@@ -435,6 +445,27 @@ void executarConversao() {
     } while (opc != 0);
 }
 
+void executarConMoedas(){
+    int opc;
+    do {
+        menuConMoedas();
+        scanf("%d", &opc);
+        switch (opc) {
+            case 1:
+                DolarParaReal();
+                break;
+            case 2:
+                EuroParaReal();
+                break;
+            case 3: break;
+            default:
+                printf("Opcao invalida!\n");
+        }
+        if (opc != 3) pausar();
+    } while (opc != 3);
+}
+
+
 int main() {
     int opc;
     do {
@@ -450,12 +481,15 @@ int main() {
             case 3:
                 executarConversao();
                 break;
-            case 4: break;
+            case 4:
+                executarConMoedas();
+                break;
+            case 5: break;
             default:
                 printf("Opcao invalida!\n");
                 pausar();
         }
-    } while (opc != 4);
+    } while (opc != 5);
     cabecalho("Programa encerrado. Ate logo!");
     return 0;
 }
