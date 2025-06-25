@@ -43,14 +43,18 @@ void figuraCirculo() {
     }
 }
 void figuraLosango() {
-    int altura = 5;
+     int altura = 5;
     for (int i = -altura; i <= altura; i++) {
         int espacos = abs(i);
         int asteriscos = altura - espacos + 1;
-        for (int j = 0; j < espacos; j++) printf(" ");
+        for (int j = 0; j < espacos; j++) {
+            printf(" ");
+        }
         printf("*");
         if (asteriscos > 1) {
-            for (int j = 0; j < (asteriscos - 1) * 2 - 1; j++) printf(" ");
+            for (int j = 0; j < (asteriscos - 1) * 2 - 1; j++) {
+                printf(" ");
+            }
             printf("*");
         }
         printf("\n");
@@ -69,8 +73,12 @@ void figuraTrapezio() {
     int incremento = (baseMaior - baseMenor) / (linhas - 1);
     for (int i = 0; i < linhas; i++) {
         int largura = baseMenor + i * incremento;
-        for (int e = 0; e < (baseMaior - largura) / 2; e++) printf(" ");
-        for (int j = 0; j < largura; j++) printf("*");
+        for (int e = 0; e < (baseMaior - largura) / 2; e++) {
+            printf(" ");
+        }
+        for (int j = 0; j < largura; j++) {
+            printf("*");
+        }
         printf("\n");
     }
 }
@@ -91,53 +99,61 @@ void figuraEsfera() {
     figuraCirculo(); 
 }
 void figuraCone() {
-    int altura = 6;
+    int altura = 6, troncoAltura = 2, troncoLargura = 2;
     for (int i = 0; i < altura; i++) {
         for (int e = 0; e < altura - i - 1; e++) printf(" ");
         for (int j = 0; j < 2 * i + 1; j++) printf("*");
         printf("\n");
     }
-    for (int i = 0; i < 2; i++) {
-        for (int e = 0; e < altura; e++) printf(" ");
-        printf("|\n");
+    for (int i = 0; i < troncoAltura; i++) {
+        for (int e = 0; e < altura - troncoLargura / 2; e++) printf(" ");
+        for (int j = 0; j < troncoLargura; j++) printf("|");
+        printf("\n");
     }
 }
 void figuraCilindro() {
     int altura = 6, largura = 12;
-    for (int i = 0; i < largura; i++) printf("*");
-    printf("\n");
-    for (int i = 0; i < altura; i++) {
+    for (int i = 0; i < largura; i++) {
         printf("*");
-        for (int j = 0; j < largura - 2; j++) printf(" ");
+    }
+    printf("\n");
+    for (int i = 0; i < altura - 2; i++) {
+        printf("*");
+        for (int j = 0; j < largura - 2; j++) {
+            printf(" ");
+        }
         printf("*\n");
     }
-    for (int i = 0; i < largura; i++) printf("*");
+    for (int i = 0; i < largura; i++) {
+        printf("*");
+    }
     printf("\n");
 }
 void figuraParalelepipedo() {
-    int linhas = 6, colunas = 14;
-    for (int i = 0; i < linhas; i++) {
-        for (int j = 0; j < colunas; j++) {
-            if (i == 0 || i == linhas - 1 || j == 0 || j == colunas - 1)
-                printf("*");
-            else
-                printf(" ");
-        }
-        printf("\n");
+    int altura = 6, largura = 32;
+    for (int i = 0; i < largura; i++) {
+        printf("*");
     }
+    printf("\n");
+    for (int i = 0; i < altura - 2; i++) {
+        printf("*");
+        for (int j = 0; j < largura - 2; j++) {
+            printf(" ");
+        }
+        printf("*\n");
+    }
+    for (int i = 0; i < largura; i++) {
+        printf("*");
+    }
+    printf("\n");
 }
-void figuraMetrosJardas() { printf("[m] <--> [yd]\n"); }
-void figuraCmPol() { printf("[cm3] <--> [in3]\n"); }
-void figuraLitrosGaloes() { printf("[L] <--> [gal]\n"); }
-void figuraKgLibras() { printf("[kg] <--> [lb]\n"); }
-
 // Funções de processamento de cada operação
 void processarCirculo() {
     figuraCirculo();
-    float d;
+    float diam;
     printf("Diametro do circulo: ");
-    scanf("%f", &d);
-    printf("Area do circulo: %.2f\n", circulo(d));
+    scanf("%f", &diam);
+    printf("Area do circulo: %.2f\n", circulo(diam));
 }
 void processarLosango() {
     figuraLosango();
@@ -204,49 +220,41 @@ void processarParalelepipedo() {
     printf("Volume do paralelepipedo: %.2f\n", paralelepipedo(comp, larg, alt));
 }
 void processarMetrosJardas() {
-    figuraMetrosJardas();
     float m;
     printf("Metros: "); scanf("%f", &m);
     printf("%.2f m = %.2f yd\n", m, m_j(m));
 }
 void processarJardasMetros() {
-    figuraMetrosJardas();
     float yd;
     printf("Jardas: "); scanf("%f", &yd);
     printf("%.2f yd = %.2f m\n", yd, j_m(yd));
 }
 void processarCmPol() {
-    figuraCmPol();
     float cm3;
     printf("cm3: "); scanf("%f", &cm3);
     printf("%.2f cm3 = %.2f in3\n", cm3, cmcub_polcub(cm3));
 }
 void processarPolCm() {
-    figuraCmPol();
     float in3;
     printf("in3: "); scanf("%f", &in3);
     printf("%.2f in3 = %.2f cm3\n", in3, polcub_cmcub(in3));
 }
 void processarLitrosGaloes() {
-    figuraLitrosGaloes();
     float l;
     printf("Litros: "); scanf("%f", &l);
     printf("%.2f L = %.2f gal\n", l, l_gl(l));
 }
 void processarGaloesLitros() {
-    figuraLitrosGaloes();
     float gal;
     printf("Galoes: "); scanf("%f", &gal);
     printf("%.2f gal = %.2f L\n", gal, gl_l(gal));
 }
 void processarKgLibras() {
-    figuraKgLibras();
     float kg;
     printf("Kg: "); scanf("%f", &kg);
     printf("%.2f kg = %.2f lb\n", kg, kg_lib(kg));
 }
 void processarLibrasKg() {
-    figuraKgLibras();
     float lb;
     printf("Libras: "); scanf("%f", &lb);
     printf("%.2f lb = %.2f kg\n", lb, lib_kg(lb));
