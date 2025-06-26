@@ -5,24 +5,64 @@
 #define PI 3.14159265
 
 // Funções de cálculo
-float circulo(float dia) { float r = dia / 2; return PI * r * r; }
-float losango(float D1, float D2) { return (D1 * D2) / 2; }
-float paralelogramo(float alt, float base) { return base * alt; }
-float trapezio(float B_maior, float b_menor, float alt) { return ((B_maior + b_menor) / 2) * alt; }
-float triangulo_equi(float lado) { return (lado * lado * sqrt(3)) / 4; }
-float triangulo(float base, float alt) { return (base * alt) / 2; }
-float esfera(float dia) { float r = dia / 2; return (4.0 * PI * r * r * r) / 3.0; }
-float cone(float dia, float alt) { float r = dia / 2; return (PI * r * r * alt) / 3.0; }
-float cilindro(float dia, float alt) { float r = dia / 2; return PI * r * r * alt; }
-float paralelepipedo(float comp, float larg, float alt) { return comp * larg * alt; }
-float m_j(float num) { return num * 1.09361; }
-float j_m(float num) { return num / 1.09361; }
-float cmcub_polcub(float num) { return num / 16.387064; }
-float polcub_cmcub(float num) { return num * 16.387064; }
-float l_gl(float num) { return num * 0.2642; }
-float gl_l(float num) { return num / 0.2642; }
-float kg_lib(float num) { return num * 2.20462262; }
-float lib_kg(float num) { return num / 2.20462262; }
+float circulo(float diam) {
+    float r = diam / 2;
+    return PI * r * r;
+}
+float losango(float D1, float D2) { 
+    return (D1 * D2) / 2;
+}
+float paralelogramo(float alt, float base) { 
+    return base * alt;
+}
+float trapezio(float B_maior, float b_menor, float alt) {
+    return ((B_maior + b_menor) / 2) * alt;
+}
+float triangulo_equi(float lado) {
+    return (lado * lado * sqrt(3)) / 4; 
+}
+float triangulo(float base, float alt) { 
+    return (base * alt) / 2; 
+}
+float esfera(float dia) { 
+    float r = dia / 2;
+    return (4.0 * PI * r * r * r) / 3.0; 
+}
+float cone(float dia, float alt) { 
+    float r = dia / 2;
+    return (PI * r * r * alt) / 3.0;
+}
+float cilindro(float dia, float alt) { 
+    float r = dia / 2; 
+    return PI * r * r * alt; 
+}
+float paralelepipedo(float comp, float larg, float alt) {
+    return comp * larg * alt; 
+}
+float m_j(float num) { 
+    return num * 1.09361;
+}
+float j_m(float num) {
+    return num / 1.09361;
+}
+float cmcub_polcub(float num) {
+    return num / 16.387064;
+}
+float polcub_cmcub(float num) {
+    return num * 16.387064;
+}
+float l_gl(float num) { 
+    return num * 0.2642; 
+}
+float gl_l(float num) { 
+    return num / 0.2642; 
+}
+float kg_lib(float num) {
+    return num * 2.20462262; 
+}
+float lib_kg(float num) {
+    return num / 2.20462262; 
+}
 
 // Funções de figuras ASCII
 void figuraCirculo() {
@@ -179,16 +219,23 @@ void processarTrapezio() {
 }
 void processarTriangulo() {
     figuraTriangulo();
-    float a, b, c;
+    float a, b, c, base, altura;
     printf("Lado A: "); scanf("%f", &a);
     printf("Lado B: "); scanf("%f", &b);
     printf("Lado C: "); scanf("%f", &c);
     if (a == b && b == c) {
+        printf("Triangulo Equilatero\n");
         printf("Area do triangulo equilatero: %.2f\n", triangulo_equi(a));
+    } else if (a == b || a == c || b == c) {
+        printf("Triangulo Isosceles\n");
+        printf("Base: "); scanf("%f", &base);
+        printf("Altura: "); scanf("%f", &altura);
+        printf("Area do triangulo: %.2f\n", triangulo(base, altura));
     } else {
-        printf("Base: "); scanf("%f", &a);
-        printf("Altura: "); scanf("%f", &b);
-        printf("Area do triangulo: %.2f\n", triangulo(a, b));
+        printf("Triangulo Escaleno\n");
+        printf("Base: "); scanf("%f", &base);
+        printf("Altura: "); scanf("%f", &altura);
+        printf("Area do triangulo: %.2f\n", triangulo(base, altura));
     }
 }
 void processarEsfera() {
@@ -259,20 +306,6 @@ void processarLibrasKg() {
     printf("Libras: "); scanf("%f", &lb);
     printf("%.2f lb = %.2f kg\n", lb, lib_kg(lb));
 }
-void processarDolarParaReal() {
-    float dolar, cotacao = 5.56;
-    printf("Digite o valor em dólares (US$): ");
-    scanf("%f", &dolar);
-    printf("Cotação do dólar: %.2f\n", cotacao);
-    printf("Valor em reais: R$ %.2f\n", dolar * cotacao);
-}
-void processarEuroParaReal() {
-    float euro, cotacao = 6.02;
-    printf("Digite o valor em euros (€): ");
-    scanf("%f", &euro);
-    printf("Cotação do euro: %.2f\n", cotacao);
-    printf("Valor em reais: R$ %.2f\n", euro * cotacao);
-}
 
 // Utilitários
 void cabecalho(const char * titulo) {
@@ -295,8 +328,7 @@ void menuPrincipal() {
         "\n\t\t\t 1 - Calcular Area de figuras planas\n"
         "\t\t\t 2 - Calcular VOLUME de solidos geometricos\n"
         "\t\t\t 3 - Conversao de MEDIDAS\n"
-        "\t\t\t 4 - Conversao de MOEDAS\n"
-        "\t\t\t 5 - Sair\n"
+        "\t\t\t 4 - Sair\n"
         "\n\t\t\t Escolha: ");
 }
 void menuArea() {
@@ -328,14 +360,6 @@ void menuConversao() {
         "\t\t 3 - cm3 -> pol3 \t\t 7 - Kg -> Libras\n"
         "\t\t 4 - pol3 -> cm3 \t\t 8 - Libras -> Kg\n"
         "\n\t\t 0 - Voltar\n"
-        "\n\t\t\t Escolha: ");
-}
-void menuConMoedas() {
-    cabecalho(" CONVERSAO DE MOEDAS");
-    printf(
-        "\n\t\t 1 - Dolar -> Reais"
-        "\t\t 2 - Euro -> Reais"
-        "\n\t\t 3 - Voltar\n"
         "\n\t\t\t Escolha: ");
 }
 
@@ -393,20 +417,6 @@ void executarConversao() {
         if (opc != 0) pausar();
     } while (opc != 0);
 }
-void executarConMoedas() {
-    int opc;
-    do {
-        menuConMoedas();
-        scanf("%d", &opc);
-        switch (opc) {
-            case 1: processarDolarParaReal(); break;
-            case 2: processarEuroParaReal(); break;
-            case 3: break;
-            default: printf("Opcao invalida!\n");
-        }
-        if (opc != 3) pausar();
-    } while (opc != 3);
-}
 
 int main() {
     int opc;
@@ -417,11 +427,10 @@ int main() {
             case 1: executarArea(); break;
             case 2: executarVolume(); break;
             case 3: executarConversao(); break;
-            case 4: executarConMoedas(); break;
-            case 5: break;
+            case 4: break;
             default: printf("Opcao invalida!\n"); pausar();
         }
-    } while (opc != 5);
+    } while (opc != 4);
     cabecalho("Programa encerrado. Ate logo!");
     return 0;
 }
