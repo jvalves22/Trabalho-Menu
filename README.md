@@ -25,11 +25,6 @@ Este projeto é uma **calculadora geométrica em linguagem C**, que permite calc
 - Litros ↔ Galões
 - Quilogramas ↔ Libras
 
-✅ **Conversão de moedas**:
-- Dolar ↔ Reais
-- Euros ↔ Reais
-
-
 ✅ Interface de menu no terminal
 
 ✅ Exibição de **figuras em ASCII** para melhor visualização das formas escolhidas
